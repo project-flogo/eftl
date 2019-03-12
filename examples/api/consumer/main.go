@@ -2,12 +2,9 @@ package main
 
 import (
 	"flag"
-	"io"
 	"io/ioutil"
 	"log"
 	"net/http"
-	"os"
-	"os/exec"
 
 	"github.com/project-flogo/core/engine"
 	"github.com/project-flogo/eftl/examples"
@@ -26,46 +23,9 @@ func main() {
 	flag.Parse()
 
 	if *ftl {
-		cmd := exec.Command("/opt/tibco/ftl/current-version/bin/tibftlserver",
-			"--config", "/opt/tibco/eftl/6.0/samples/tibftlserver_eftl.yaml",
-			"--name", "SRV1")
-		stdout, err := cmd.StderrPipe()
-		if err != nil {
-			panic(err)
-		}
-		err = cmd.Start()
-		if err != nil {
-			panic(err)
-		}
-		io.Copy(os.Stdout, stdout)
-		err = cmd.Wait()
-		if err != nil {
-			panic(err)
-		}
+		examples.StartFTL()
 	} else if *eftl {
-		cmd := exec.Command("/opt/tibco/eftl/6.0/ftl/bin/tibftladmin", "--ftlserver", "http://localhost:8585",
-			"--updaterealm", "/opt/tibco/eftl/6.0/samples/tibrealm.json")
-		err := cmd.Run()
-		if err != nil {
-			panic(err)
-		}
-
-		cmd = exec.Command("/opt/tibco/eftl/6.0/ftl/bin/tibftlserver",
-			"--config", "/opt/tibco/eftl/6.0/samples/tibftlserver_eftl.yaml",
-			"--name", "EFTL")
-		stdout, err := cmd.StderrPipe()
-		if err != nil {
-			panic(err)
-		}
-		err = cmd.Start()
-		if err != nil {
-			panic(err)
-		}
-		io.Copy(os.Stdout, stdout)
-		err = cmd.Wait()
-		if err != nil {
-			panic(err)
-		}
+		examples.StartEFTL()
 	} else if *client {
 		errChannel := make(chan error, 1)
 		options := &lib.Options{

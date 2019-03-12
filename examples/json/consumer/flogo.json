@@ -1,0 +1,80 @@
+{
+  "name": "MyProxy",
+  "type": "flogo:app",
+  "version": "1.0.0",
+  "description": "This is a simple eftl application.",
+  "properties": null,
+  "channels": null,
+  "triggers": [
+    {
+      "name": "flogo-eftl",
+      "id": "MyProxy",
+      "ref": "github.com/project-flogo/eftl/trigger",
+      "settings": {
+        "url": "ws://localhost:9191/channel"
+      },
+      "handlers": [
+        {
+          "settings": {
+            "dest": "sample"
+          },
+          "actions": [
+            {
+              "id": "microgateway:Pets"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "resources": [
+    {
+      "id": "microgateway:Pets",
+      "compressed": false,
+      "data": {
+        "name": "Pets",
+        "steps": [
+          {
+            "service": "PetStorePets",
+            "input": {
+              "content": "=$.payload.content"
+            }
+          }
+        ],
+        "responses": [
+          {
+            "error": false,
+            "output": {
+              "code": 200,
+              "data": "=$.PetStorePets.outputs.data"
+            }
+          }
+        ],
+        "services": [
+          {
+            "name": "PetStorePets",
+            "description": "Get pets by ID from the petstore",
+            "ref": "github.com/project-flogo/contrib/activity/rest",
+            "settings": {
+              "uri": "http://localhost:8181/a",
+              "method": "POST",
+              "headers": {
+                "Accept": "application/json"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "actions": [
+    {
+      "ref": "github.com/project-flogo/microgateway",
+      "settings": {
+        "uri": "microgateway:Pets"
+      },
+      "id": "microgateway:Pets",
+      "metadata": null
+    }
+  ]
+}

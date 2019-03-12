@@ -13,7 +13,7 @@ type Settings struct {
 
 // HandlerSettings are the handler settings of the eftl trriger
 type HandlerSettings struct {
-	Dest string `md:dest,required"`
+	Dest string `md:"dest,required"`
 }
 
 // Output are the outputs sent to the action
