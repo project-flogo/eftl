@@ -1,10 +1,6 @@
 package examples
 
 import (
-	"io"
-	"os"
-	"os/exec"
-
 	"github.com/project-flogo/contrib/activity/rest"
 	resttrigger "github.com/project-flogo/contrib/trigger/rest"
 	"github.com/project-flogo/core/api"
@@ -14,53 +10,6 @@ import (
 	"github.com/project-flogo/microgateway"
 	microapi "github.com/project-flogo/microgateway/api"
 )
-
-// StartFTL starts the ftl service
-func StartFTL() {
-	cmd := exec.Command("/opt/tibco/ftl/current-version/bin/tibftlserver",
-		"--config", "/opt/tibco/eftl/6.0/samples/tibftlserver_eftl.yaml",
-		"--name", "SRV1")
-	stdout, err := cmd.StderrPipe()
-	if err != nil {
-		panic(err)
-	}
-	err = cmd.Start()
-	if err != nil {
-		panic(err)
-	}
-	io.Copy(os.Stdout, stdout)
-	err = cmd.Wait()
-	if err != nil {
-		panic(err)
-	}
-}
-
-// StartEFTL starts the eftl service
-func StartEFTL() {
-	cmd := exec.Command("/opt/tibco/eftl/6.0/ftl/bin/tibftladmin", "--ftlserver", "http://localhost:8585",
-		"--updaterealm", "/opt/tibco/eftl/6.0/samples/tibrealm.json")
-	err := cmd.Run()
-	if err != nil {
-		panic(err)
-	}
-
-	cmd = exec.Command("/opt/tibco/eftl/6.0/ftl/bin/tibftlserver",
-		"--config", "/opt/tibco/eftl/6.0/samples/tibftlserver_eftl.yaml",
-		"--name", "EFTL")
-	stdout, err := cmd.StderrPipe()
-	if err != nil {
-		panic(err)
-	}
-	err = cmd.Start()
-	if err != nil {
-		panic(err)
-	}
-	io.Copy(os.Stdout, stdout)
-	err = cmd.Wait()
-	if err != nil {
-		panic(err)
-	}
-}
 
 // ConsumerExample returns an EFTL consumer example
 func ConsumerExample() (engine.Engine, error) {

@@ -15,16 +15,14 @@ import (
 	"time"
 
 	"github.com/project-flogo/core/engine"
+	"github.com/project-flogo/eftl/docker"
 	"github.com/project-flogo/eftl/lib"
 	"github.com/project-flogo/microgateway/api"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestMain(m *testing.M) {
-	go StartFTL()
-	time.Sleep(30 * time.Second)
-	go StartEFTL()
-	time.Sleep(30 * time.Second)
+	docker.StartEFTL()
 	os.Exit(m.Run())
 }
 
@@ -33,7 +31,6 @@ type handler struct {
 }
 
 func (h *handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("ServeHttp")
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		panic(err)

@@ -12,21 +12,15 @@ package lib
 import (
 	"fmt"
 	"log"
-	"net"
 	"os"
 	"testing"
 	"time"
+
+	"github.com/project-flogo/eftl/docker"
 )
 
-func skip() bool {
-	_, err := net.Dial("tcp", "127.0.0.1:9191")
-	return err != nil
-}
-
 func TestMain(m *testing.M) {
-	if skip() {
-		return
-	}
+	docker.StartEFTL()
 	os.Exit(m.Run())
 }
 
