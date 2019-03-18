@@ -1,2 +1,3 @@
 # eftl
-Flogo Activity and Trigger for TIBCO EFTL
+
+Flogo [Activity](activity/) and [Trigger](trigger/) for TIBCO [EFTL](https://www.tibco.com/products/tibco-eftl)

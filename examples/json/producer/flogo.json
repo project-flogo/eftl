@@ -1,0 +1,80 @@
+{
+  "name": "MyProxy",
+  "type": "flogo:app",
+  "version": "1.0.0",
+  "description": "This is a simple proxy.",
+  "properties": null,
+  "channels": null,
+  "triggers": [
+    {
+      "name": "flogo-rest",
+      "id": "MyProxy",
+      "ref": "github.com/project-flogo/contrib/trigger/rest",
+      "settings": {
+        "port": "9096"
+      },
+      "handlers": [
+        {
+          "settings": {
+            "method": "POST",
+            "path": "/"
+          },
+          "actions": [
+            {
+              "id": "microgateway:Pets"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "resources": [
+    {
+      "id": "microgateway:Pets",
+      "compressed": false,
+      "data": {
+        "name": "EFTLGateway",
+        "steps": [
+          {
+            "service": "EFTLGateway",
+            "input": {
+              "content": "=$.payload.content",
+              "dest": "sample"
+            }
+          }
+        ],
+        "responses": [
+          {
+            "error": false,
+            "output": {
+              "code": 200,
+              "data": {
+                "status": "Success"
+              }
+            }
+          }
+        ],
+        "services": [
+          {
+            "name": "EFTLGateway",
+            "description": "EFTL gateway",
+            "ref": "github.com/project-flogo/eftl/activity",
+            "settings": {
+              "url": "ws://localhost:9191/channel"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "actions": [
+    {
+      "ref": "github.com/project-flogo/microgateway",
+      "settings": {
+        "uri": "microgateway:Pets"
+      },
+      "id": "microgateway:Pets",
+      "metadata": null
+    }
+  ]
+}
