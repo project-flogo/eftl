@@ -1,5 +1,5 @@
 {
-  "name": "eftl activity",
+  "name": "eftl-activity",
   "type": "flogo:activity",
   "version": "0.0.1",
   "title": "EFTL Activity",
@@ -9,35 +9,42 @@
     {
       "name": "url",
       "type": "string",
-      "required": true
+      "required": true,
+      "description": "The EFTL server URL"
     },
     {
       "name": "id",
-      "type": "string"
+      "type": "string",
+      "description": "The id for this EFTL client"
     },
     {
       "name": "user",
-      "type": "string"
+      "type": "string",
+      "description": "The user name for the EFTL server"
     },
     {
       "name": "password",
-      "type": "string"
+      "type": "string",
+      "description": "The password for the EFTL server"
     },
     {
       "name": "ca",
-      "type": "string"
+      "type": "string",
+      "description": "The certificate authority for the EFTL client"
     }
   ],
   "input": [
     {
       "name": "content",
       "type": "any",
-      "required": true
+      "required": true,
+      "description": "The message to send"
     },
     {
       "name": "dest",
       "type": "string",
-      "required": true
+      "required": true,
+      "description": "The EFTL dest to send the messages to"
     }
   ],
   "output": []

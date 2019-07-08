@@ -1,6 +1,5 @@
-# SQL Detector
-
-The `sqld` service type implements SQL injection attack detection. Regular expressions and a [GRU](https://en.wikipedia.org/wiki/Gated_recurrent_unit) recurrent neural network are used to detect SQL injection attacks.
+# EFTL Trigger
+This activity provides your microgateway application the ability to receive EFTL messages.
 
 The available trigger `settings` are as follows:
 

@@ -1,0 +1,65 @@
+{
+  "name": "eftl-trigger",
+  "type": "flogo:trigger",
+  "version": "0.0.1",
+  "title": "EFTL Trigger",
+  "description": "EFTL Trigger",
+  "homepage": "https://github.com/project-flogo/eftl/tree/master/trigger",
+  "settings": [
+    {
+      "name": "url",
+      "type": "string",
+      "required": true,
+      "description": "The URL of the EFTL server"
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "The client ID of the EFTL trigger"
+    },
+    {
+      "name": "user",
+      "type": "string",
+      "description": "The login user for the EFTL server"
+    },
+    {
+      "name":"password",
+      "type":"string",
+      "description": "The login passwod for the EFTL server"
+    },
+    {
+      "name": "ca",
+      "type": "string",
+      "description": "The certificate for the EFTL server"
+    }
+  ],
+  "output": [
+    {
+      "name": "content",
+      "type": "any",
+      "description": "The content of the EFTL message"
+    }
+  ],
+  "reply": [
+    {
+      "name": "code",
+      "type": "int",
+      "description": "Status code"
+    },
+    {
+      "name": "data",
+      "type": "any",
+      "description": "data"
+    }
+  ],
+  "handler": {
+    "settings": [
+      {
+        "name": "dest",
+        "type": "string",
+        "required": true,
+        "description": "The destination to listen on"
+      }
+    ]
+  }
+}
